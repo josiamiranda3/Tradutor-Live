@@ -1,0 +1,29 @@
+<main class="shell">
+  <header class="topbar">
+    <div class="logo">↔</div>
+    <div class="brand"><small>TRADUÇÃO EM TEMPO REAL</small><h1>Tradutor <span>Live</span></h1></div>
+    <div class="status" [class.active]="statusMode === 'active'" [class.error]="statusMode === 'error'"><i></i><span>{{ status }}</span></div>
+  </header>
+
+  <section class="hero">
+    <div><p class="eyebrow">INGLÊS <b>→</b> PORTUGUÊS</p><h2>Entenda o que está sendo dito.<br><span>Enquanto acontece.</span></h2><p class="description">Transcrição e tradução do áudio do Windows em tempo real.</p></div>
+    <div class="orb" aria-hidden="true"><div>音</div></div>
+  </section>
+
+  <section class="controls">
+    <div class="capture-icon">◉</div>
+    <div class="control-info"><strong>Áudio do sistema Windows</strong><p>O backend local captura o dispositivo de saída padrão, incluindo navegadores e outros programas.</p></div>
+    <div class="buttons"><button class="primary" (click)="start()" [disabled]="connected">▶ Iniciar tradução</button><button class="secondary" (click)="stop()" [disabled]="!connected">■ Encerrar</button></div>
+    <p class="privacy">O áudio é enviado ao Google Gemini para processamento. Use apenas conteúdos que você tenha autorização para processar.</p>
+  </section>
+
+  <div class="notice" *ngIf="errorMessage" role="alert">{{ errorMessage }}</div>
+
+  <section class="panels">
+    <article class="panel"><header><div><span class="lang en">EN</span><strong>Original em inglês</strong></div><button class="copy" (click)="copy(englishText)" title="Copiar inglês">⧉</button></header><div class="text" aria-live="polite"><p *ngIf="!englishText" class="empty">A transcrição original aparecerá aqui.</p><pre *ngIf="englishText">{{ englishText }}</pre></div><footer><i></i><span>{{ englishText ? 'Transcrição recebida' : 'Aguardando áudio' }}</span></footer></article>
+    <article class="panel translated"><header><div><span class="lang pt">PT</span><strong>Tradução em português</strong></div><button class="copy" (click)="copy(portugueseText)" title="Copiar português">⧉</button></header><div class="text" aria-live="polite"><p *ngIf="!portugueseText" class="empty">A tradução aparecerá aqui em trechos contínuos.</p><pre *ngIf="portugueseText">{{ portugueseText }}</pre></div><footer><i></i><span>{{ portugueseText ? 'Tradução recebida' : 'Pronto para traduzir' }}</span></footer></article>
+  </section>
+
+  <section class="bottom"><div><strong>Feito para acompanhar ao vivo</strong><p>Inicie a sessão e reproduza o áudio que deseja entender.</p></div><button class="secondary" (click)="clear()">Limpar textos</button></section>
+  <footer class="page-foot">Tradutor Live · Angular + FastAPI · <a href="http://127.0.0.1:8000/docs" target="_blank" rel="noreferrer">Documentação da API local</a></footer>
+</main>
